@@ -22,19 +22,19 @@ namespace AutoPause
                 {
                     MediaKeyHelper.SendPlayPause();
                     AutoPause.isPaused = true;
-                    Logger.LogInfo($"Spotify window title: {title}");
-                    Logger.LogInfo("Pause key sent.");
+                    Logger.LogInfo($"[Spotify mode] Spotify window title: {title}");
+                    Logger.LogInfo("[Spotify mode] Pause key sent.");
                 }
                 else
                 {
-                    Logger.LogDebug("No Spotify window found or title is invalid.");
+                    Logger.LogDebug("[Spotify mode] No Spotify window found or title is invalid.");
                 }
             } 
             else if (AutoPause.Mode.Value == "Dumb")
             {
                 MediaKeyHelper.SendPlayPause();
                 AutoPause.isPaused = true;
-                Logger.LogInfo("Play/Pause key sent.");
+                Logger.LogInfo("[Dumb mode] Play/Pause key sent.");
             }
             else
             {
