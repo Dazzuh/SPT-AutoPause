@@ -2,7 +2,6 @@ using System.Reflection;
 using EFT;
 using SPT.Reflection.Patching;
 using AutoPause.Helpers;
-using System.Linq;
 
 namespace AutoPause
 {
