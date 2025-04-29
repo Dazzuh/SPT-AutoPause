@@ -16,7 +16,7 @@ namespace AutoPause
             if (AutoPause.Mode.Value == "Spotify")
             {
                 var title = SpotifyHelper.GetSpotifyWindowTitle();
-                if (!string.IsNullOrEmpty(title) && title != "No Spotify window found" && title != "Spotify Premium")
+                if (!string.IsNullOrEmpty(title) && title != "No Spotify window found" && title != "Spotify Premium" && title != "Spotify Free")
                 {
                     MediaKeyHelper.SendPlayPause();
                     AutoPause.isPaused = true;
