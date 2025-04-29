@@ -16,25 +16,15 @@ namespace AutoPause
             if (AutoPause.Mode.Value == "Disabled" || !AutoPause.isPaused) return;
             if (AutoPause.Mode.Value == "Spotify")
             {
-                var title = SpotifyHelper.GetSpotifyWindowTitle();
-                bool isInvalidTitle = SpotifyHelper.invalidTitles.Contains(title) || string.IsNullOrEmpty(title);
-                if (!isInvalidTitle)
-                {
-                    MediaKeyHelper.SendPlayPause();
-                    AutoPause.isPaused = false;
-                    Logger.LogInfo($"Spotify window title: {title}");
-                    Logger.LogInfo("Play key sent.");
-                }
-                else
-                {
-                    Logger.LogDebug("No Spotify window found or title is invalid.");
-                }
+                MediaKeyHelper.SendPlayPause();
+                AutoPause.isPaused = false;
+                Logger.LogInfo("[Spotify mode] Previously paused by us, play key sent.");
             }
             else if (AutoPause.Mode.Value == "Dumb")
             {
                 MediaKeyHelper.SendPlayPause();
                 AutoPause.isPaused = false;
-                Logger.LogInfo("Play/Pause key sent.");
+                Logger.LogInfo("[Dumb mode] Play/Pause key sent.");
             }
             else
             {
