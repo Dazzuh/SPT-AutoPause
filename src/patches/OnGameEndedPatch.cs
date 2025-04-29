@@ -5,20 +5,21 @@ using AutoPause.Helpers;
 
 namespace AutoPause
 {
-    public class OnGameStartedPatch : ModulePatch
+    public class OnGameEndedPatch : ModulePatch
     {
-        protected override MethodBase GetTargetMethod() => typeof(GameWorld).GetMethod("OnGameStarted", BindingFlags.Public | BindingFlags.Instance);
+        protected override MethodBase GetTargetMethod() => typeof(GameWorld).GetMethod(nameof(GameWorld.UnregisterPlayer));
 
         [PatchPostfix]
         private static void PostFix()
         {
+            if (!AutoPause.isPaused) return;
             var title = SpotifyHelper.GetSpotifyWindowTitle();
-            if (!string.IsNullOrEmpty(title) && title != "No Spotify window found" && title != "Spotify Premium")
+            if (!string.IsNullOrEmpty(title) && title != "No Spotify window found" && title == "Spotify Premium" || title == "Spotify Free")
             {
                 MediaKeyHelper.SendPlayPause();
-                AutoPause.isPaused = true;
+                AutoPause.isPaused = false;
                 Logger.LogInfo($"Spotify window title: {title}");
-                Logger.LogInfo("Pause key sent.");
+                Logger.LogInfo("Play key sent.");
             }
             else
             {

@@ -22,7 +22,7 @@
       "args": [
         "Copy-Item",
         "-Path",
-        "'${workspaceFolder}/src/bin/Debug/net471/AutoPause.dll'",
+        "${workspaceFolder}/src/bin/Debug/net472/AutoPause.dll",
         "-Destination",
         "S:/SPT-Dev/BepInEx/plugins/",
         "-Force"
