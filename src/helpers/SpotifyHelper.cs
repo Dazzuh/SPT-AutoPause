@@ -15,6 +15,8 @@ namespace AutoPause.Helpers
         [DllImport("user32.dll", SetLastError = true)]
         private static extern int GetWindowTextLength(IntPtr hWnd);
 
+        public static readonly string[] invalidTitles = { "No Spotify window found", "Spotify Premium", "Spotify Free" };
+
         public static List<string> GetSpotifyWindowTitles()
         {
             try

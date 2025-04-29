@@ -2,6 +2,7 @@ using System.Reflection;
 using EFT;
 using SPT.Reflection.Patching;
 using AutoPause.Helpers;
+using System.Linq;
 
 namespace AutoPause
 {
@@ -16,7 +17,8 @@ namespace AutoPause
             if (AutoPause.Mode.Value == "Spotify")
             {
                 var title = SpotifyHelper.GetSpotifyWindowTitle();
-                if (!string.IsNullOrEmpty(title) && title != "No Spotify window found" && title != "Spotify Premium" && title != "Spotify Free")
+                bool isInvalidTitle = SpotifyHelper.invalidTitles.Contains(title) || string.IsNullOrEmpty(title);
+                if (!isInvalidTitle)
                 {
                     MediaKeyHelper.SendPlayPause();
                     AutoPause.isPaused = true;
