@@ -8,7 +8,7 @@ namespace AutoPause
 {
     public class OnGameEndedPatch : ModulePatch
     {
-        protected override MethodBase GetTargetMethod() => typeof(GameWorld).GetMethod(nameof(GameWorld.UnregisterPlayer));
+        protected override MethodBase GetTargetMethod() => typeof(GameWorld).GetMethod(nameof(GameWorld.OnDestroy));
 
         [PatchPostfix]
         private static void PostFix()
