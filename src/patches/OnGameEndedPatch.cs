@@ -12,18 +12,31 @@ namespace AutoPause
         [PatchPostfix]
         private static void PostFix()
         {
-            if (!AutoPause.isPaused) return;
-            var title = SpotifyHelper.GetSpotifyWindowTitle();
-            if (!string.IsNullOrEmpty(title) && title != "No Spotify window found" && title == "Spotify Premium" || title == "Spotify Free")
+            if (AutoPause.Mode.Value == "Disabled" || !AutoPause.isPaused) return;
+            if (AutoPause.Mode.Value == "Spotify")
+            {
+                var title = SpotifyHelper.GetSpotifyWindowTitle();
+                if (!string.IsNullOrEmpty(title) && title != "No Spotify window found" && title == "Spotify Premium" || title == "Spotify Free")
+                {
+                    MediaKeyHelper.SendPlayPause();
+                    AutoPause.isPaused = false;
+                    Logger.LogInfo($"Spotify window title: {title}");
+                    Logger.LogInfo("Play key sent.");
+                }
+                else
+                {
+                    Logger.LogDebug("No Spotify window found or title is invalid.");
+                }
+            }
+            else if (AutoPause.Mode.Value == "Dumb")
             {
                 MediaKeyHelper.SendPlayPause();
                 AutoPause.isPaused = false;
-                Logger.LogInfo($"Spotify window title: {title}");
-                Logger.LogInfo("Play key sent.");
+                Logger.LogInfo("Play/Pause key sent.");
             }
             else
             {
-                Logger.LogDebug("No Spotify window found or title is invalid.");
+                Logger.LogError($"Invalid mode: {AutoPause.Mode.Value}");
             }
         }
     }
