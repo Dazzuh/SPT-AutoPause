@@ -2,6 +2,7 @@ using System.Reflection;
 using EFT;
 using SPT.Reflection.Patching;
 using AutoPause.Helpers;
+using System.Linq;
 
 namespace AutoPause
 {
@@ -13,7 +14,10 @@ namespace AutoPause
         private static void PostFix()
         {
             if (AutoPause.Mode.Value == "Disabled" || !AutoPause.isPaused) return;
-            if (AutoPause.Mode.Value == "Spotify")
+
+            var title = SpotifyHelper.GetSpotifyWindowTitle();
+            bool isInvalidTitle = SpotifyHelper.invalidTitles.Contains(title) || string.IsNullOrEmpty(title);
+            if (AutoPause.Mode.Value == "Spotify" && isInvalidTitle && !string.IsNullOrEmpty(title))
             {
                 MediaKeyHelper.SendPlayPause();
                 AutoPause.isPaused = false;
