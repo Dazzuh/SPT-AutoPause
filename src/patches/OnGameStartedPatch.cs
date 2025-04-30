@@ -8,7 +8,7 @@ namespace AutoPause
 {
     public class OnGameStartedPatch : ModulePatch
     {
-        protected override MethodBase GetTargetMethod() => typeof(GameWorld).GetMethod("OnGameStarted", BindingFlags.Public | BindingFlags.Instance);
+        protected override MethodBase GetTargetMethod() => typeof(GameWorld).GetMethod(nameof(GameWorld.OnGameStarted));
 
         [PatchPostfix]
         private static void PostFix()
